@@ -23,40 +23,79 @@
     h1 {
       font-size: 2rem;
       text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .slot {
+      font-size: 2rem;
+      background: white;
+      padding: 20px 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       margin-bottom: 20px;
+      min-width: 200px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .spinning {
+      animation: spin 0.1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotateX(0deg); }
+      to { transform: rotateX(360deg); }
     }
 
     button {
-      padding: 12px 24px;
+      padding: 12px 28px;
       font-size: 1.2rem;
       border: none;
       border-radius: 12px;
-      background: white;
-      color: #007aff;
+      background: #007aff;
+      color: white;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
     button:hover {
       transform: scale(1.05);
+      background: #005bb5;
     }
   </style>
 </head>
 <body>
-  <h1>🎰 Жми кнопку!</h1>
-  <button onclick="rollDice()">Крутить 🎲</button>
+  <h1>🎰 Что будем делать?</h1>
+  <div id="slot" class="slot">Нажми кнопку</div>
+  <button onclick="rollSlot()">Крутить 🎲</button>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // Сообщаем Telegram, что WebApp готов
     Telegram.WebApp.ready();
-    Telegram.WebApp.expand(); // заставляем раскрыться на максимум
+    Telegram.WebApp.expand();
 
-    function rollDice() {
-      const options = ["🎬 Кино", "🍕 Пицца", "🎮 Игры", "🍺 Бар", "🚶 Прогулка", "📚 Книга"];
-      const choice = options[Math.floor(Math.random() * options.length)];
-      alert("Тебе выпало: " + choice);
+    const options = ["🎬 Кино", "🍕 Пицца", "🎮 Игры", "🍺 Бар", "🚶 Прогулка", "📚 Книга", "🎤 Караоке", "🎳 Боулинг"];
+    const slot = document.getElementById("slot");
+
+    function rollSlot() {
+      slot.classList.add("spinning");
+
+      let spins = 20; // сколько "прокруток"
+      let count = 0;
+      const interval = setInterval(() => {
+        const randomOption = options[Math.floor(Math.random() * options.length)];
+        slot.textContent = randomOption;
+        count++;
+        if (count >= spins) {
+          clearInterval(interval);
+          slot.classList.remove("spinning");
+
+          // финальный выбор
+          const finalChoice = options[Math.floor(Math.random() * options.length)];
+          slot.textContent = finalChoice;
+        }
+      }, 100);
     }
   </script>
 </body>
