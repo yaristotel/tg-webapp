@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рулетка досуга</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      flex-direction: column;
+    }
+    #roulette {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="roulette">🎰 Жми кнопку!</div>
+  <button onclick="spin()">Крутить 🎲</button>
+
+  <script>
+    const options = ["Кино 🎬", "Парк 🌳", "Кафе ☕", "Квест 🕵️‍♂️", "Дома 📺"];
+    const roulette = document.getElementById("roulette");
+
+    function spin() {
+      let i = 0;
+      const interval = setInterval(() => {
+        roulette.textContent = options[Math.floor(Math.random() * options.length)];
+        i++;
+        if (i > 15) clearInterval(interval); // крутится 15 раз
+      }, 100);
+    }
+  </script>
+</body>
+</html>
