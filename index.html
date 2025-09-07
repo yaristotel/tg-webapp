@@ -2,61 +2,61 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Рулетка досуга</title>
+  <title>🎲 Dosug App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
   <style>
     html, body {
-      height: 100vh;
-      width: 100vw;
       margin: 0;
       padding: 0;
-      overflow: hidden;
-
-    }
-    body {
+      height: 100vh;
+      width: 100vw;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      font-family: sans-serif;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
     }
-    #roulette {
-      font-size: 3rem;
+
+    h1 {
+      font-size: 2rem;
+      text-align: center;
       margin-bottom: 20px;
-      transition: all 0.3s ease;
     }
+
     button {
-      font-size: 1.5rem;
-      padding: 12px 25px;
-      cursor: pointer;
+      padding: 12px 24px;
+      font-size: 1.2rem;
       border: none;
-      border-radius: 10px;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
+      border-radius: 12px;
+      background: white;
+      color: #007aff;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease;
     }
+
     button:hover {
       transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <div id="roulette">🎰 Жми кнопку!zxc</div>
-  <button onclick="spin()">Крутить 🎲</button>
+  <h1>🎰 Жми кнопку!</h1>
+  <button onclick="rollDice()">Крутить 🎲</button>
 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    const options = ["Кино 🎬", "Парк 🌳", "Кафе ☕", "Квест 🕵️‍♂️", "Дома 📺", "Прогулка 🚶‍♂️", "Музей 🖼️"];
-    const roulette = document.getElementById("roulette");
+    // Сообщаем Telegram, что WebApp готов
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand(); // заставляем раскрыться на максимум
 
-    function spin() {
-      let i = 0;
-      const totalSpins = 20; // количество прокруток
-      const interval = setInterval(() => {
-        roulette.textContent = options[Math.floor(Math.random() * options.length)];
-        i++;
-        if (i >= totalSpins) clearInterval(interval);
-      }, 100); // скорость прокрутки
+    function rollDice() {
+      const options = ["🎬 Кино", "🍕 Пицца", "🎮 Игры", "🍺 Бар", "🚶 Прогулка", "📚 Книга"];
+      const choice = options[Math.floor(Math.random() * options.length)];
+      alert("Тебе выпало: " + choice);
     }
   </script>
 </body>
